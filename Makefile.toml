@@ -54,7 +54,7 @@ dependencies = ["build_release"]
 [tasks.fmt]
 description = "Format with rustfmt"
 workspace = false
-install_crate = { crate_name = "rustfmt-nightly", rustup_component_name = "rustfmt", binary = "rustfmt", test_arg = "--help" }
+install_crate = { crate_name = "rustfmt-stable", rustup_component_name = "rustfmt", binary = "rustfmt", test_arg = "--help" }
 command = "cargo"
 args = ["fmt", "--all"]
 

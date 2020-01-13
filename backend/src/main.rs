@@ -17,7 +17,8 @@ fn delayed_response(
 
 fn main() -> std::io::Result<()> {
     let system = System::new("odin-media-server");
-
+    let ip = "0.0.0.0";
+    let port = "20789";
     HttpServer::new(move || {
         App::new()
             .service(
@@ -29,8 +30,10 @@ fn main() -> std::io::Result<()> {
             .service(Files::new("/pkg", "./frontend/pkg"))
             .default_service(web::get().to(|| NamedFile::open("./frontend/index.html")))
     })
-    .bind("127.0.0.1:20789")?
+    .bind(format!("{}:{}", ip, port))?
     .run()?;
 
+    println!("Done!");
+    println!("Server running on: {}:{}", ip, port);
     system.run()
 }
