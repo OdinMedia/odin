@@ -1,9 +1,35 @@
 [package]
 name = "frontend"
 version = "0.1.0"
-authors = ["Stephen F <snipeydev@gmail.com>"]
+repository = "https://github.com/OdinMedia/odin"
+authors = ["snipey"]
+description = "Exemplary real world application built with Seed"
+readme = "./README.md"
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
 
 [dependencies]
+chrono = "0.4"
+gloo-timers = {version = "0.2", features = ["futures"]}
+indexmap = { version = "1.0.2", features = [ "serde-1" ] }
+lazy_static = "1.3.0"
+newtype = "0.2.1"
+num-integer = "0.1.41"
+seed = "0.5.1"
+serde = "1"
+serde_json = "1"
+shrinkwraprs = "0.3"
+strum = "0.17"
+strum_macros = "0.17"
+unicode-segmentation = "1.3.0"
+wasm-bindgen = "0.2.56"
+web-sys = { version = "0.3", features = [ "ScrollBehavior", "ScrollToOptions" ] }
+
+[profile.release]
+lto = true
+opt-level = 's'

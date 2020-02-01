@@ -1,5 +1,5 @@
 [package]
-name = "db"
+name = "core"
 version = "0.1.0"
 authors = ["Stephen F <snipeydev@gmail.com>"]
 edition = "2018"

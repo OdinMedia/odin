@@ -1,0 +1,72 @@
+# ---- BUILD ----
+
+[tasks.build]
+description = "Build frontend and backend"
+clear = true
+workspace = false
+dependencies = ["build_frontend", "build_backend"]
+
+[tasks.build_release]
+extend = "build"
+description = "Build frontend and backend in release mode"
+dependencies = ["build_frontend_release", "build_backend_release"]
+
+[tasks.build_frontend]
+description = "Build frontend"
+workspace = false
+install_crate = { crate_name = "wasm-pack", binary = "wasm-pack", test_arg = "-V" }
+command = "wasm-pack"
+args = ["build", "frontend", "--target", "web", "--out-name", "package", "--dev"]
+
+[tasks.build_frontend_release]
+extend = "build_frontend"
+description = "Build frontend in release mode"
+args = ["build", "frontend", "--target", "web", "--out-name", "package", "--release"]
+
+[tasks.build_backend]
+description = "Build backend"
+workspace = false
+command = "cargo"
+args = ["build", "--package", "backend"]
+
+[tasks.build_backend_release]
+extend = "build_backend"
+description = "Build backend in release mode"
+args = ["build", "--package", "backend", "--release"]
+
+# ---- START ----
+
+[tasks.start]
+description = "Build and start backend with frontend on port 20789"
+workspace = false
+command = "cargo"
+args = ["run", "--package", "backend"]
+dependencies = ["build"]
+
+[tasks.start_release]
+extend = "start"
+description = "Build and start backend with frontend on port 20789 in release mode"
+args = ["run", "--package", "backend", "--release"]
+dependencies = ["build_release"]
+
+# ---- LINT ----
+
+[tasks.fmt]
+description = "Format with rustfmt"
+workspace = false
+install_crate = { crate_name = "rustfmt-stable", rustup_component_name = "rustfmt", binary = "rustfmt", test_arg = "--help" }
+command = "cargo"
+args = ["fmt", "--all"]
+
+[tasks.fmt_check]
+extend = "fmt"
+description = "Check format with rustfmt"
+args = ["fmt", "--all", "--", "--check"]
+
+[tasks.clippy]
+description = "Lint with Clippy"
+clear = true
+workspace = false
+install_crate = { rustup_component_name = "clippy", binary = "cargo-clippy", test_arg = "--help" }
+command = "cargo"
+args = ["clippy", "--all-features", "--", "--deny", "clippy::all", "--deny", "clippy::pedantic", "--deny", "clippy::nursery"]
