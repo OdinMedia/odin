@@ -1,10 +1,47 @@
 [workspace]
 members = [
-	"frontend",
-    "backend",
-	"core"
+	"core",
+	"provider/local",
+	"frontend/http",
+	"frontend/web"
 ]
 
-[profile.release]  # Attempts to minimize file size
-lto = true
-opt-level = 'z'
+[package]
+name = "Odin-Media"
+version = "0.1.0"
+authors = ["Stephen F <snipeydev@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+env_logger = "0.7"
+log = "0.4"
+structopt = "0.3"
+serde = "1.0"
+serde_derive = "1.0"
+ctrlc = "3.1.3"
+failure = "0.1.6"
+toml = "0.4.5"
+
+[dependencies.odin-core]
+path = "core"
+
+[dependencies.odin-memory-store]
+path = "store/memory"
+
+[dependencies.odin-sqlite-store]
+path = "store/sqlite"
+optional = true
+
+[dependencies.odin-http-frontend]
+path = "frontend/http"
+optional = true
+
+[dependencies.odin-gstreamer-backend]
+path = "backend/gstreamer"
+optional = true
+
+[dependencies.odin-local-provider]
+path = "provider/local"
+optional = true
