@@ -1,5 +1,5 @@
 [package]
-name = "odin-core"
+name = "odin-memory-store"
 version = "0.1.0"
 authors = ["snipey"]
 edition = "2018"
